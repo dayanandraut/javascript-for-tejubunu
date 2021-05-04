@@ -1,0 +1,352 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[greek,english]{babel}
+\usepackage{alphabeta} 
+\usepackage{amsmath}
+
+\usepackage[pdftex]{graphicx}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+\linespread{1.06}
+\setlength{\parskip}{8pt plus2pt minus2pt}
+
+\widowpenalty 10000
+\clubpenalty 10000
+
+\newcommand{\eat}[1]{}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\usepackage[official]{eurosym}
+\usepackage{enumitem}
+\setlist{nolistsep,noitemsep}
+\usepackage[hidelinks]{hyperref}
+\usepackage{cite}
+\usepackage{lipsum}
+
+
+\begin{document}
+
+%===========================================================
+\begin{titlepage}
+\begin{center}
+
+% Top 
+
+% Title
+\HRule \\[0.4cm]
+{ 
+Spring Semester 2020-2021\\[0.2cm]
+% \large{\bf A Report for CSN-361 (Computer Network Lab)}\\[0.4cm]
+\large{\bf A Report for CSN-504 (Programming Lab)}\\[0.4cm]
+}
+\HRule \\[1.5cm]
+
+Submitted by\\[0.5cm]
+% Author
+{
+{\bf Dayanand Raut (20535010)}\\[0.1cm]
+\texttt{d\_raut@cs.iitr.ac.in}\\[0.1cm]
+}
+
+\vfill
+
+\includegraphics[width=0.3\textwidth]{IITR_new_logo_color}~\\[0.5cm]
+\textsc{\large Department of Computer Science and Engineering}\\[0.2cm]
+\textsc{\large Indian Institute of Technology (IIT) Roorkee}\\[0.2cm]
+
+% Bottom
+{\large \today}
+ 
+\end{center}
+\end{titlepage}
+
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+
+\newpage
+
+%===========================================================
+\tableofcontents
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\newpage
+\setcounter{page}{1}
+%===========================================================
+
+%===========================================================
+\section{Problem Statement 1}\label{sec:problem1}
+Write programs to implement Prim’s algorithm and Kruskal’s algorithm (union-find data structure)
+for finding minimum spanning tree (MST):
+%===========================================================
+\subsection{Question}\label{sec:question1}
+
+\subsection{Theory}\label{sec:theory1}
+
+\subsection{Implementation Details}\label{sec:details1}
+
+\subsection{Results}\label{sec:results1}
+Simulation results to be added with screenshots for one or more testcase(s) depending on the problem statement.
+
+\clearpage
+%===========================================================
+\section{Problem Statement 2}\label{sec:problem2}
+%===========================================================
+\subsection{Question}\label{sec:question2}
+Implement an algorithm for solving the maximum bipartite matching problem:
+
+A graph G = (V, E) is bipartite if the set of vertices V can be partitioned into two subsets L and R such that every edge connects a node in L to one in R. A subset of edges $M \subseteq E$ is a matching, if each node appears in at most one edge in M. Given a bipartite graph $G = (L \cup R, E)$, maximum bipartite matching problem is to find a maximum cardinality matching. Take “n” and “m” numbers of vertices as the input from the user. Randomly generate a bipartite graph $G = (L \cup R, E)$, such that L and R are the sets of “n” and “m” vertices, and E is the set of random edges. First, transform the problem instance of the maximum bipartite matching problem into a problem instance of the maximum flow problem. Then use the Ford–Fulkerson algorithm in order to solve the maximum bipartite matching problem in G in $O(nm)$ time.
+\subsection{Theory}\label{sec:theory2}
+A graph G = (V, E) is bipartite if the set of vertices V can be partitioned into two subsets L and R such that every edge connects a node in L to one in R. A subset of edges $M \subseteq E$ is a matching, if each node appears in at most one edge in M. Given a bipartite graph $G = (L \cup R, E)$, maximum bipartite matching problem is to find a maximum cardinality matching.
+
+Maximum Bipartite Matching problem can be solved by converting it into a maximum flow problem and then using  Ford-Fulkerson algorithm. The Ford-Fulkerson algorithm is used to detect maximum flow from start vertex to sink vertex in a given graph.
+
+\subsection{Implementation Details}\label{sec:details2}
+\begin{itemize}
+    \item Creating random bipartite graph
+    \begin{enumerate}
+        \item Get value of n and m from user
+        \item $v=n+m+2$
+        \item create 2D adjacency matrix \textbf{graph} of size v x v and fill 0
+        \item generate random n' and m' such that $0 < n' \leq n$ and $ n< m'< v $ \label{step:p2_a}
+        \item \textbf{$graph[n'][m']=1$} \label{step:p2_b}
+        \item Repeat steps \ref{step:p2_a} and \ref{step:p2_b} v times
+    \end{enumerate}
+    \item Converting Bipartite graph to max flow graph
+    \begin{enumerate}
+        \item Nodes \textbf{0} and \textbf{v} represents start and sink nodes respectively
+        \item For each $0 < i \leq n$ , {$graph[0][i]=1$}
+        \item For each $ n< j< v $, {$graph[j][v-1]=1$}
+    \end{enumerate}
+    \item Feed this graph to The Ford-Fulkerson algorithm.
+\end{itemize}
+\subsection{Results}\label{sec:results2}
+Results for randomly generated bipartite graph are shown in fig \ref{fig:output_2}
+
+\begin{figure}[ht]
+\includegraphics[width=0.95\textwidth]{P2a.jpg}
+\centering
+
+\includegraphics[width=0.95\textwidth]{P2b.jpg}
+\caption{Randomly generated Bipartite graphs and its maximum matching }
+\label{fig:output_2}
+\end{figure}
+\clearpage
+
+%===========================================================
+\section{Problem Statement 3}\label{sec:problem3}
+%===========================================================
+\subsection{Question}\label{sec:question3}
+You are given an adjacency matrix representation of an undirected graph G.
+\begin{enumerate}
+    \item Perform the BFS and DFS traversal on G (starting from vertex 0).
+    \item Find out the minimum number of edges ‘k’ that should be removed from G such that BFS and DFS traversals produce an identical sequence.
+\end{enumerate}
+\begin{itemize}
+    \item Input Format: Single integer n which is the number of vertices in the graph. Followed by n rows,  each with n integers (0/1: Absence/Presence of an edge)
+    \item Output Format: The first and second lines display the BFS and DFS traversal, respectively. The third line displays the number ‘k’ of edges that need to be removed. The next ‘k’ lines display the edges to be removed.
+\end{itemize}
+
+\subsection{Theory}\label{sec:theory3}
+In adjacency matrix representation of a graph, the matrix \textbf{mat[][]} of size n*n (where n is the number of vertices) will represent the edges of the graph where \textbf{ mat[i][j] = 1 } represents that there is an edge between the vertices i and j while \textbf{mat[i][i] = 0} represents that there is no edge between the vertices i and j.
+
+\textbf{BFS} selects a single node (source point) in a graph and then visits all the unvisited nodes adjacent to the selected node. \textbf{DFS} starts at the root node (source point) and explores as far as possible along each branch before backtracking.
+
+\subsection{Implementation Details}\label{sec:details3}
+\begin{itemize}
+    \item \textbf{BFS}
+    \begin{enumerate}
+        \item Create an array \textbf{visited} of size v and fill false in it.
+        \item Create a Queue \textbf{Q} and push the root node in it and mark visited[root] = true
+        \item while \textbf{Q} is not empty
+        \begin{enumerate}
+            \item x = pop from \textbf{Q}
+            \item visit x
+            \item for i = 0 to v-1 
+            
+            if adj[x][i] = 1 and not visited[i],
+            \begin{enumerate}
+                \item  add i to \textbf{Q}
+                \item visited[i] = true
+            \end{enumerate}
+        \end{enumerate}
+
+    \end{enumerate}
+    \begin{itemize}
+        \item Time Complexity: $O(v^2)$
+        \item Space Complexity: $O(v)$
+    \end{itemize}
+    
+    \item \textbf{DFS}
+    \begin{enumerate}
+        \item visit node x and mark visited[x] = true
+        \item for i = 0 to v-1
+        
+        if adj[x][i] = 1 and not visited[i], call DFS with node i and visited array
+    \end{enumerate}
+    \begin{itemize}
+        \item Time Complexity: $O(v^2)$
+        \item Space Complexity: $O(v)$
+    \end{itemize}
+\end{itemize}
+
+\subsection{Results}\label{sec:results3}
+Adjacency matrix for 5 vertices (0,1,2,3,4,5)
+
+$
+\begin{bmatrix}
+0 & 1 & 0 & 0 & 1\\
+1 & 0 & 1 & 0 & 0\\
+0 & 1 & 0 & 0 & 0\\
+0 & 0 & 0 & 0 & 1\\
+1 & 0 & 0 & 1 & 0
+\end{bmatrix}
+$
+\begin{itemize}
+    \item BFS: 0 1 4 2 3
+    \item DFS: 0 1 2 4 3
+\end{itemize}
+\begin{figure}[ht]
+\includegraphics[width=0.95\textwidth]{P3.jpg}
+\centering
+\caption{Output}
+\label{fig:output_3}
+\end{figure}
+\clearpage
+%===========================================================
+\section{Problem Statement 4}\label{sec:problem4}
+%===========================================================
+\subsection{Question}\label{sec:question4}
+Given an integer n and a sequence of n distinct numbers a1, a2, ..., an, find the order in which these integers must be inserted to an empty binary search tree T (no rotation allowed) such that at each insertion, T is an AVL tree i.e., for all nodes of binary search tree T, $|$ Height of left subtree – Height of right subtree $| \leq 1 $.
+
+
+\begin{itemize}
+    \item Input Format: Single integer n which is the number of elements in the sequence followed by n
+distinct integers a1, a2, ..., an.
+    \item Output Format: Print n space separated integers showing the required sequence.
+\end{itemize}
+
+\subsection{Theory}\label{sec:theory4}
+An AVL tree maintains the height balance property, i.e. difference in the height of the left and the right sub-trees can not be other than -1, 0 or 1 for each node.
+
+AVL tree can be constructed from the sorted array and the level wise traversal of the the AVL tree gives the sequence in which the values should be inserted to an empty BST such that at insertion, the tree is an AVL tree.
+
+\subsection{Implementation Details}\label{sec:details4}
+To implement the above recurrence relation, I have used bottom up approach in Java.
+\begin{enumerate}
+  \item Sort the array \textbf{arr}
+  \item Construct an AVL tree from \textbf{arr}
+  \begin{enumerate}
+      \item Get the middle of the array and make it root \label{step:1}
+      \item Recursively do the same for left half and right half
+      \begin{itemize}
+          \item Get the middle of left half and make it left child of the root created in step \ref{step:1}
+          \item Get the middle of right half and make it right child of the root created in step \ref{step:1}
+      \end{itemize}
+  \end{enumerate}
+  \item Traverse the tree level wise
+  
+\end{enumerate}
+\begin{itemize}
+    \item Time complexity : O(n log n)
+     \item Space complexity: O(n)
+\end{itemize}
+
+\subsection{Results}\label{sec:results4}
+Required sequence for arrays \{3,1,2\} and \{1,2,3,4,5,6,7\} are shown in fig. \ref{fig:output_4}
+\begin{figure}[ht]
+\includegraphics[width=0.95\textwidth]{P4.jpg}
+\centering
+\caption{Outputs for [3 1 2] \& [1 2 3 4 5 6 7]}
+\label{fig:output_4}
+\end{figure}
+
+\clearpage
+
+%===========================================================
+\section{Problem Statement 6}\label{sec:problem6}
+%===========================================================
+\subsection{Question}\label{sec:question6}
+Write a C++/Java program that accepts height ‘h’ of an AVL tree and prints the minimum number of nodes that an AVL tree can have.
+\begin{itemize}
+    \item Input format: Single integer h, representing the height of the AVL tree
+    \item Output format: Number of nodes
+\end{itemize}
+
+\subsection{Theory}\label{sec:theory6}
+An AVL tree maintains the height balance property, i.e. difference in the height of the left and the right sub-trees can not be other than -1, 0 or 1 for each node.
+
+Let's create a recurrence relation to find minimum number of nodes for a given height, n(h).
+
+\begin{itemize}
+  \item For height = 0, we can only have a single node in an AVL tree, i.e. n(0) = 1
+  \item For height = 1, we can have a minimum of two nodes in an AVL tree, i.e. n(1) = 2
+  \item For any height ‘h’, root will have two subtrees (left and right)
+  \item So, for $h \geq 2 $, \textbf { n(h) = 1 + n(h-1) + n(h-2) } is the required recurrence relation
+  
+\end{itemize}
+\subsection{Implementation Details}\label{sec:details6}
+To implement the above recurrence relation, I have used bottom up approach in Java.
+\begin{enumerate}
+  \item Initialize an array \textbf{minNodes} of size h+1
+  \item minNodes[0] = 1 and minNodes[1] = 2
+  \item for i = 2 to h, \textbf{minNodes[i] = 1 + minNodes[i-1] + minNodes[i-2]}
+  \item Return minNodes[h]
+\end{enumerate}
+\begin{itemize}
+    \item Time complexity : O(n)
+     \item Space complexity: O(n)
+\end{itemize}
+
+\subsection{Results}\label{sec:results6}
+Number of minimum nodes required in AVL trees of heights 0,1,2 and 3 are shown in fig. \ref{fig:output_6}
+\begin{figure}[ht]
+\includegraphics[width=0.95\textwidth]{P6.jpg}
+\centering
+\caption{Outputs for h = 0,1,2,3}
+\label{fig:output_6}
+\end{figure}
+
+\clearpage
+
+%===========================================================
+\section{Problem Statement 7}\label{sec:problem7}
+%===========================================================
+\subsection{Question}\label{sec:question7}
+Write a C++/Java program that accepts N integers denoting the nodes of a complete binary tree. Find the minimum number of swaps required to convert the binary tree into a binary search tree. In one swap, you can swap any two nodes (just values of the nodes).
+\begin{itemize}
+    \item Output: Print a single integer, denoting the minimum number of swaps needed to convert a binary tree into a binary search tree
+\end{itemize}
+
+\subsection{Theory}\label{sec:theory7}
+A Binary Tree is a Complete Binary Tree if all the levels are completely filled except possibly the last level and the last level has all keys as left as possible. In a complete Binary tree, if index i is the parent, index $2*i + 1$ is the left child and index $2*i + 2$ is the right child.
+
+To find the minimum number of swaps needed to convert a binary tree into a binary search tree is  to use the fact that inorder traversal of BST is in increasing order of their value. So, find the inorder traversal of the Binary Tree and store it in the array and try to sort the array. The minimum number of swap required to get the array sorted is the answer.
+
+\subsection{Implementation Details}\label{sec:details7}
+I have implemented this problem in Java.
+\begin{enumerate}
+  \item Find the inorder traversal from given array of inputs and store them in \textbf{inorderList}.
+  \item Create a hashmap \textbf{posMap} to store the position (index) of each items in the inorderList
+  \item Duplicate inorderList into another array \textbf{temp} and sort temp.
+  \item for i = 0 to n, compare inorderList[i] and temp[i]. If they are not equal,
+  \begin{enumerate}
+      \item increment the \textbf{numberOfSwaps}
+      \item swap inorderList[i] with the posMap(temp[i])
+      \item update the posMap for the swapped items
+  \end{enumerate}
+  \item Return \textbf{numberOfSwaps}
+\end{enumerate}
+\begin{itemize}
+    \item Time complexity : O(n Log n)
+     \item Space complexity: O(n)
+\end{itemize}
+
+\subsection{Results}\label{sec:results7}
+Number of minimum swaps for different inputs are shown in fig. \ref{fig:output_7}
+\begin{figure}[ht]
+\includegraphics[width=0.95\textwidth]{P7.jpg}
+\centering
+\caption{Outputs for [1,2,3] and [5,6,7,8,9,10,11]}
+\label{fig:output_7}
+\end{figure}
+
+\end{document} 
